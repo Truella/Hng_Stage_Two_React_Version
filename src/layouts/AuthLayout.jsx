@@ -8,11 +8,11 @@ const AuthLayout = () => {
 		>
 			{/* Decorative circles */}
 			<div
-				className="absolute top-10 left-10 w-40 h-40 bg-blue-200 rounded-full blur-3xl opacity-40"
+				className="absolute top-10 left-10 w-40 h-40 bg-blue-200 rounded-full opacity-70"
 				aria-hidden="true"
 			></div>
 			<div
-				className="absolute bottom-10 right-10 w-32 h-32 bg-blue-300 rounded-full blur-2xl opacity-30"
+				className="absolute bottom-10 right-10 w-32 h-32 bg-blue-300 rounded-full opacity-70"
 				aria-hidden="true"
 			></div>
 

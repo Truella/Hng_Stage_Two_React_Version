@@ -15,8 +15,8 @@ const Auth = () => {
 	}, [location.pathname]);
 
 	const handleToggle = () => {
-		if (isLogin) navigate("/auth/signup");
-		else navigate("/auth/login");
+		if (isLogin) navigate("/signup");
+		else navigate("/login");
 	};
 
 	return (
