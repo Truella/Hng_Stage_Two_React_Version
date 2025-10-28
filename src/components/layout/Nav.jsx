@@ -5,13 +5,13 @@ const Nav = ({ isOpen, onClose }) => {
 		<nav
 			className={`${
 				isOpen
-					? "flex flex-col items-center absolute top-16 left-0 w-full bg-white shadow-md py-6 z-50"
+					? "border border-t-blue-500 flex flex-col items-center absolute top-16 left-0 w-full bg-white shadow-md py-6 z-50"
 					: "hidden md:flex"
 			} md:static md:bg-transparent md:flex-row md:shadow-none md:py-0`}
 			aria-label="Main Navigation"
 		>
-			<ul className="flex flex-col md:flex-row gap-6 md:gap-8 text-gray-700 font-medium text-base">
-				<li>
+			<ul className=" w-[80%] flex flex-col items-center md:flex-row gap-6 md:gap-8 text-gray-700 font-medium text-base">
+				<li className="">
 					<a
 						href="#features"
 						onClick={onClose}
@@ -40,11 +40,11 @@ const Nav = ({ isOpen, onClose }) => {
 						Login
 					</Link>
 				</li>
-				<li>
+				<li className="w-full flex justify-center items-center">
 					<Link
 						to="/signup"
 						onClick={onClose}
-						className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 transition"
+						className="bg-blue-600 w-full text-center text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 transition"
 					>
 						Get Started
 					</Link>

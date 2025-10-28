@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-	base: '/Resolvr_React_Version_/',
 	plugins: [react(), tailwindcss()],
+	base:
+		process.env.NODE_ENV === "production" ? "/Resolvr_React_Version_/" : "/",
 });

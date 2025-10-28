@@ -30,7 +30,7 @@ const Features = () => {
 	return (
 		<section
 			id="features"
-			className="bg-white pb-20 text-center mx-auto"
+			className="bg-white py-20 text-center w-[80vw] md:w-full mx-auto"
 			aria-labelledby="features-heading"
 		>
 			<div className="mx-auto">

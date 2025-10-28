@@ -17,7 +17,7 @@ const AuthLayout = () => {
 			></div>
 
 			{/* Auth Form Container */}
-			<div className="relative z-10 w-full max-w-md bg-white shadow-lg rounded-2xl px-8 py-10 md:px-10">
+			<div className="relative z-10 w-[90vw] max-w-md bg-white shadow-lg rounded-2xl px-8 py-10 md:px-10">
 				<Outlet />
 			</div>
 		</section>

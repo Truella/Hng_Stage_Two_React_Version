@@ -15,7 +15,7 @@ const Header = () => {
 			role="banner"
 			aria-label="Site Header"
 		>
-			<div className="w-full px-16 flex items-center justify-between">
+			<div className="w-full px-8 md:px-16 flex items-center justify-between">
 				{/* Logo */}
 				<Logo />
 
@@ -30,7 +30,7 @@ const Header = () => {
 					aria-expanded={menuOpen}
 					aria-controls="main-navigation"
 				>
-					{menuOpen ? <X size={24} /> : <Menu size={24} />}
+					{menuOpen ? <X size={32} /> : <Menu size={32} />}
 				</button>
 			</div>
 		</header>

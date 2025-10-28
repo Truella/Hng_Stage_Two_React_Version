@@ -21,6 +21,26 @@ const Auth = () => {
 
 	return (
 		<div>
+			<a
+				href="/"
+				class="inline-flex items-center gap-1 text-sm text-gray-600 hover:text-blue-600 transition mb-4"
+			>
+				<svg
+					class="w-4 h-4"
+					fill="none"
+					stroke="currentColor"
+					viewBox="0 0 24 24"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M15 19l-7-7 7-7"
+					></path>
+				</svg>
+				Back to Home
+			</a>
+
 			<h2 className="text-2xl font-bold text-center text-blue-600 mb-6">
 				{isLogin ? "Welcome Back" : "Create an Account"}
 			</h2>
