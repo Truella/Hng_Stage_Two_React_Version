@@ -46,7 +46,7 @@ export default function TicketCard({
 						className="p-2 text-red-600 hover:bg-red-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors"
 					>
 						<Trash2 className="w-4 h-4" aria-hidden="true" />
-					</button> 
+					</button>
 				</div>
 			</div>
 		</article>

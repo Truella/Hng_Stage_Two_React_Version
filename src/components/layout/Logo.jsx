@@ -3,10 +3,9 @@ const Logo = () => {
 		<a
 			href="/"
 			className="flex items-center gap-2 text-blue-600 font-semibold text-xl focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
-			aria-label="TicketFlow Home"
+			aria-label="Resolvr. Home"
 		>
-			<span>🎟️</span>
-			<span>TicketFlow</span>
+			<span className="border-t-2 border-l-2">Resolvr.</span>
 		</a>
 	);
 };

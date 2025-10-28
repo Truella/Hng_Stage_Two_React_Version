@@ -18,15 +18,22 @@ export default function Dashboard() {
 	});
 
 	useEffect(() => {
-		// Simulate fetching ticket statistics
-		// In a real app, this would fetch from your backend
-		const mockStats = {
-			total: 156,
-			open: 23,
-			inProgress: 45,
-			resolved: 88,
+		const updateStats = () => {
+			const storedTickets = JSON.parse(localStorage.getItem("tickets")) || [];
+			const total = storedTickets.length;
+			const open = storedTickets.filter((t) => t.status === "open").length;
+			const inProgress = storedTickets.filter(
+				(t) => t.status === "in_progress"
+			).length;
+			const resolved = storedTickets.filter(
+				(t) => t.status === "closed" || t.status === "resolved"
+			).length;
+			setStats({ total, open, inProgress, resolved });
 		};
-		setStats(mockStats);
+
+		updateStats(); // run once initially
+		window.addEventListener("storage", updateStats); // update if another tab modifies storage
+		return () => window.removeEventListener("storage", updateStats);
 	}, []);
 
 	const statCards = [
@@ -105,17 +112,18 @@ export default function Dashboard() {
 						Quick Actions
 					</h2>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-						<button className="flex items-center justify-between p-4 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 transition-colors group">
+						<Link
+							to={"/dashboard/tickets"}
+							className="flex items-center justify-between p-4 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 transition-colors group"
+						>
 							<div className="flex items-center">
-								<Link to={'/dashboard/tickets'}>
-									<Ticket className="w-5 h-5 text-blue-600 mr-3" />
-									<span className="font-medium text-gray-900">
-										Manage Tickets
-									</span>
-								</Link>
+								<Ticket className="w-5 h-5 text-blue-600 mr-3" />
+								<span className="font-medium text-gray-900">
+									Manage Tickets
+								</span>
 							</div>
 							<ArrowRight className="w-5 h-5 text-blue-600 group-hover:translate-x-1 transition-transform" />
-						</button>
+						</Link>
 
 						<button className="flex items-center justify-between p-4 bg-green-50 hover:bg-green-100 rounded-lg border border-green-200 transition-colors group">
 							<div className="flex items-center">

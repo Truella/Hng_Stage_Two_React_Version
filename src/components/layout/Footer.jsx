@@ -1,14 +1,12 @@
 import { Github, Twitter, Linkedin } from "lucide-react";
+import Logo from "./Logo";
 
 const Footer = () => {
 	return (
 		<footer className="bg-gray-100 text-gray-700 mt-16 border-t border-gray-200">
-			<div className="max-w-[1440px] mx-auto px-6 py-10 flex flex-col items-center text-center md:text-left md:flex-row md:justify-between">
+			<div className="max-w-[1200px] mx-auto py-10 flex flex-col items-center text-center md:text-left md:flex-row md:justify-between">
 				{/* Logo / App Name */}
-				<h3 className="text-2xl font-semibold text-blue-600 mb-4 md:mb-0">
-					TicketFlow
-				</h3>
-
+				<Logo/>
 				{/* Navigation Links */}
 				<ul className="flex flex-wrap justify-center gap-6 mb-4 md:mb-0">
 					<li>
@@ -60,7 +58,7 @@ const Footer = () => {
 					</div>
 
 					<p className="text-sm text-gray-500">
-						© {new Date().getFullYear()} TicketFlow. All Rights Reserved.
+						© {new Date().getFullYear()} Resolvr. All Rights Reserved.
 					</p>
 				</div>
 			</div>

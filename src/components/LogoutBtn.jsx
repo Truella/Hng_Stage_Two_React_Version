@@ -13,11 +13,11 @@ export default function LogoutButton({ isExpanded }) {
 
 	return (
 		<button
-			className="text-red-500 flex items-center gap-3 px-3 py-2 rounded-md hover:bg-red-50 transition-all duration-300"
+			className="text-sm font-medium flex items-center gap-3 px-3 py-2 rounded-md hover:bg-red-50 hover:text-red-500 transition-all duration-300"
 			onClick={handleLogout}
 		>
 			<span>Logout</span>
-			<LogOut size={24} />
+			<LogOut size={20} />
 		</button>
 	);
 }

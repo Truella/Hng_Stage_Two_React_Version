@@ -11,11 +11,11 @@ const Header = () => {
 
 	return (
 		<header
-			className="bg-white shadow-sm sticky top-0 z-50"
+			className="bg-white shadow-sm sticky top-0 z-50 h-[10vh] flex items-center "
 			role="banner"
 			aria-label="Site Header"
 		>
-			<div className="max-w-[1440px] mx-auto px-6 py-4 flex items-center justify-between">
+			<div className="w-full px-16 flex items-center justify-between">
 				{/* Logo */}
 				<Logo />
 

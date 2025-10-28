@@ -6,28 +6,37 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 	const navigate = useNavigate();
-	const [user, setUser] = useState(getSession());
-	const [isAuthenticated, setIsAuthenticated] = useState(!!getSession());
+	const [user, setUser] = useState(null);
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [loading, setLoading] = useState(true);
 
-	const login = (email, password) => {
-		if (!email || !password) {
-			throw new Error("All fields are required");
+	useEffect(() => {
+		setLoading(true);
+		const session = getSession();
+
+		if (session) {
+			setUser(session);
+			setIsAuthenticated(true);
+		} else {
+			setUser(null);
+			setIsAuthenticated(false);
 		}
 
-		// Retrieve registered users from localStorage
+		setLoading(false);
+	}, []);
+
+	const login = (email, password) => {
+		if (!email || !password) throw new Error("All fields are required");
+
 		const storedUsers =
 			JSON.parse(localStorage.getItem("ticketapp_users")) || [];
 
-		// Check if user exists with matching email and password
 		const existingUser = storedUsers.find(
 			(user) => user.email === email && user.password === password
 		);
 
-		if (!existingUser) {
-			throw new Error("Invalid email or password");
-		}
+		if (!existingUser) throw new Error("Invalid email or password");
 
-		// Set session for logged-in user
 		const sessionUser = {
 			email: existingUser.email,
 			name: existingUser.name,
@@ -36,52 +45,33 @@ export const AuthProvider = ({ children }) => {
 
 		localStorage.setItem("ticketapp_session", JSON.stringify(sessionUser));
 
-		// Update app state
 		setSession(sessionUser);
 		setUser(sessionUser);
 		setIsAuthenticated(true);
-
-		// Log success message
-		console.log(`Login successful! Welcome, ${existingUser.name}`);
 	};
 
 	const signup = ({ email, password, confirmPassword, name }) => {
-		// 1. Basic validation
-		console.log(email,password,confirmPassword,name)
-		if (!email || !password || !confirmPassword || !name) {
+		if (!email || !password || !confirmPassword || !name)
 			throw new Error("All fields are required");
-		}
+		if (password !== confirmPassword) throw new Error("Passwords do not match");
 
-		if (password !== confirmPassword) {
-			throw new Error("Passwords do not match");
-		}
-
-		// 2. Retrieve existing users from localStorage
 		const storedUsers =
 			JSON.parse(localStorage.getItem("ticketapp_users")) || [];
 
-		// 3. Check for duplicate email
-		const existingUser = storedUsers.find((user) => user.email === email);
-		if (existingUser) {
+		if (storedUsers.find((user) => user.email === email))
 			throw new Error("Email is already registered");
-		}
 
-		// 4. Create new user object
 		const newUser = {
 			email,
-			password, // store plain for simulation; hash in real apps
+			password,
 			name,
 			token: "fake_signup_token_" + Date.now(),
 		};
 
-		// 5. Save the user to localStorage
 		storedUsers.push(newUser);
 		localStorage.setItem("ticketapp_users", JSON.stringify(storedUsers));
-
-		// 6. Set session for logged-in user
 		localStorage.setItem("ticketapp_session", JSON.stringify(newUser));
 
-		// 7. Update app state
 		setSession(newUser);
 		setUser(newUser);
 		setIsAuthenticated(true);
@@ -91,18 +81,12 @@ export const AuthProvider = ({ children }) => {
 		clearSession();
 		setUser(null);
 		setIsAuthenticated(false);
-		navigate("/auth/login");
+		navigate("/login");
 	};
-
-	useEffect(() => {
-		if (getSession()) {
-			setIsAuthenticated(true);
-		}
-	}, []);
 
 	return (
 		<AuthContext.Provider
-			value={{ user, isAuthenticated, login, signup, logout }}
+			value={{ user, isAuthenticated, loading, login, signup, logout }}
 		>
 			{children}
 		</AuthContext.Provider>

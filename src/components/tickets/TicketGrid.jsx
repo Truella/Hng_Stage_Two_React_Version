@@ -1,5 +1,5 @@
 import TicketCard from "./TicketCard";
-
+import EmptyState from '../EmptyState'
 export default function TicketGrid({
 	tickets,
 	onEdit,

@@ -30,28 +30,28 @@ const Features = () => {
 	return (
 		<section
 			id="features"
-			className="bg-white py-20 px-6 text-center"
+			className="bg-white pb-20 text-center mx-auto"
 			aria-labelledby="features-heading"
 		>
-			<div className="max-w-[1440px] mx-auto">
+			<div className="mx-auto">
 				{/* Heading */}
 				<h2
 					id="features-heading"
-					className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-6"
+					className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-1"
 				>
-					Powerful Features to Simplify Your Workflow
+					Create. Track. Resolve.
 				</h2>
 				<p className="text-gray-600 max-w-2xl mx-auto mb-12">
-					Everything you need to manage, track, and resolve tickets efficiently
-					— all in one place.
+					A smarter way to handle tickets from start to finish — all in one
+					intuitive dashboard.
 				</p>
 
 				{/* Features Grid */}
-				<div className="grid gap-8 md:grid-cols-3">
+				<div className="grid gap-8 md:grid-cols-3 max-w-[1200px] mx-auto">
 					{features.map((feature) => (
 						<div
 							key={feature.id}
-							className="bg-blue-50 rounded-2xl shadow-md hover:shadow-lg transition p-8 flex flex-col items-center text-center focus-within:ring-2 focus-within:ring-blue-400"
+							className="bg-linear-to-br from-blue-50 to-blue-100 rounded-2xl shadow-md hover:shadow-lg transition p-8 flex flex-col items-center text-center focus-within:ring-2 focus-within:ring-blue-400"
 							tabIndex="0"
 							role="article"
 							aria-label={feature.title}

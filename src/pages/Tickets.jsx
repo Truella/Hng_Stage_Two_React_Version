@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import AuthGuard from "../components/AuthGuard";
 import Toast from "../components/Toast";
 import PageHeader from "../components/tickets/PageHeader";
 import SearchFilterBar from "../components/tickets/SearchFilterBar";
@@ -7,9 +6,11 @@ import Modal from "../components/Modal";
 import TicketForm from "../components/tickets/TicketForm";
 import DeleteConfirmModal from "../components/tickets/DeleteConfirmModal";
 import TicketGrid from "../components/tickets/TicketGrid";
+import { Loader2 } from "lucide-react";
 
 export default function Tickets() {
 	const [tickets, setTickets] = useState([]);
+	const [loading, setLoading] = useState(true);
 	const [isFormOpen, setIsFormOpen] = useState(false);
 	const [editingTicket, setEditingTicket] = useState(null);
 	const [deleteConfirm, setDeleteConfirm] = useState(null);
@@ -17,8 +18,6 @@ export default function Tickets() {
 	const [statusFilter, setStatusFilter] = useState("all");
 	const [toast, setToast] = useState(null);
 	const [errors, setErrors] = useState({});
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
-
 	const [formData, setFormData] = useState({
 		title: "",
 		description: "",
@@ -27,15 +26,6 @@ export default function Tickets() {
 	});
 
 	useEffect(() => {
-		const session = localStorage.getItem("ticketapp_session");
-		if (!session) {
-			showToast("Your session has expired — please log in again.", "error");
-			setTimeout(() => {
-				window.location.href = "/auth/login";
-			}, 2000);
-			return;
-		}
-		setIsAuthenticated(true);
 		loadTickets();
 	}, []);
 
@@ -45,6 +35,7 @@ export default function Tickets() {
 			if (stored) {
 				setTickets(JSON.parse(stored));
 			}
+			setTimeout(() => setLoading(false), 1000);
 		} catch (error) {
 			showToast("Failed to load tickets. Please retry.", "error");
 		}
@@ -183,46 +174,48 @@ export default function Tickets() {
 		};
 		return labels[status] || status;
 	};
-
 	return (
-		<AuthGuard isAuthenticated={isAuthenticated}>
-			<div className="min-h-screen bg-gray-50 py-8">
-				<div
-					className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-					style={{ maxWidth: "1440px" }}
+		<div className="min-h-screen bg-gray-50 py-8">
+			<div
+				className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+				style={{ maxWidth: "1440px" }}
+			>
+				{toast && <Toast message={toast.message} type={toast.type} />}
+
+				<PageHeader />
+				<SearchFilterBar
+					searchQuery={searchQuery}
+					setSearchQuery={setSearchQuery}
+					statusFilter={statusFilter}
+					setStatusFilter={setStatusFilter}
+					onCreateClick={() => setIsFormOpen(true)}
+				/>
+
+				<Modal
+					isOpen={isFormOpen}
+					onClose={resetForm}
+					title={editingTicket ? "Edit Ticket" : "Create New Ticket"}
 				>
-					{toast && <Toast message={toast.message} type={toast.type} />}
-
-					<PageHeader />
-					<SearchFilterBar
-						searchQuery={searchQuery}
-						setSearchQuery={setSearchQuery}
-						statusFilter={statusFilter}
-						setStatusFilter={setStatusFilter}
-						onCreateClick={() => setIsFormOpen(true)}
+					<TicketForm
+						formData={formData}
+						errors={errors}
+						onChange={handleInputChange}
+						onSubmit={handleSubmit}
+						onCancel={resetForm}
+						isEditing={!!editingTicket}
 					/>
+				</Modal>
 
-					<Modal
-						isOpen={isFormOpen}
-						onClose={resetForm}
-						title={editingTicket ? "Edit Ticket" : "Create New Ticket"}
-					>
-						<TicketForm
-							formData={formData}
-							errors={errors}
-							onChange={handleInputChange}
-							onSubmit={handleSubmit}
-							onCancel={resetForm}
-							isEditing={!!editingTicket}
-						/>
-					</Modal>
-
-					<DeleteConfirmModal
-						isOpen={!!deleteConfirm}
-						onConfirm={() => handleDelete(deleteConfirm)}
-						onCancel={() => setDeleteConfirm(null)}
-					/>
-
+				<DeleteConfirmModal
+					isOpen={!!deleteConfirm}
+					onConfirm={() => handleDelete(deleteConfirm)}
+					onCancel={() => setDeleteConfirm(null)}
+				/>
+				{loading ? (
+					<div className=" flex items-center justify-center">
+						<Loader2 className="animate-spin w-12 h-12 text-blue-600" />
+					</div>
+				) : (
 					<TicketGrid
 						tickets={filteredTickets}
 						onEdit={openEditForm}
@@ -231,8 +224,8 @@ export default function Tickets() {
 						getStatusLabel={getStatusLabel}
 						searchQuery={searchQuery}
 					/>
-				</div>
+				)}
 			</div>
-		</AuthGuard>
+		</div>
 	);
 }
