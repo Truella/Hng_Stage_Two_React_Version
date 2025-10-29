@@ -17,7 +17,7 @@ This project is available in multiple frameworks:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/resolvr-react.git
+git clone https://github.com/truella/resolvr-react.git
 cd resolvr-react
 
 # Install dependencies
