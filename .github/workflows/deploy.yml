@@ -3,7 +3,10 @@ name: Deploy React App to GitHub Pages
 on:
   push:
     branches:
-      - main  # run this workflow every time you push to main
+      - main  # 👈 or 'master' if that's your default branch
+
+permissions:
+  contents: write  # 👈 critical for publishing
 
 jobs:
   build:
