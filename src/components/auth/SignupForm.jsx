@@ -13,7 +13,7 @@ const SignupForm = () => {
 		try {
 			
 			signup(formData);
-			navigate("/auth/login");
+			navigate("/login");
 		} catch (err) {
 			setError(err.message);
 		}
